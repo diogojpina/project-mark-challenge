@@ -23,10 +23,7 @@ export class Resource {
   @Column()
   description: string;
 
-  @Column({
-    type: 'enum',
-    enum: ResourceType,
-  })
+  @Column()
   type: ResourceType;
 
   @CreateDateColumn()
