@@ -13,7 +13,7 @@ export class UserDto {
   @IsNotEmpty()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ enum: UserRoleEnum })
   @IsEnum(UserRoleEnum)
   role: UserRoleEnum;
 }
