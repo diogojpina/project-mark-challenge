@@ -5,7 +5,7 @@ export class TopicDto {
   @ApiProperty()
   @IsNumber()
   @IsOptional()
-  parentId: number;
+  parentId?: number;
 
   @ApiProperty()
   @IsString()

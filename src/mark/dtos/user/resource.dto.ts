@@ -1,17 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ResourceType } from '../../enum/resource.type.enum';
 
 export class ResourceDto {
   @ApiProperty()
   @IsNumber()
-  @IsOptional()
   topicId: number;
 
   @ApiProperty()

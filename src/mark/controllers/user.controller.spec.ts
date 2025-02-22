@@ -23,7 +23,6 @@ describe('UserController', () => {
       controllers: [UserController],
     })
       .useMocker((token) => {
-        console.log('token', token);
         if (token === UserService) {
           return {
             list: jest.fn().mockResolvedValue(Promise.resolve(users)),
@@ -33,15 +32,6 @@ describe('UserController', () => {
             delete: jest.fn().mockResolvedValue(Promise.resolve(true)),
           };
         }
-
-        // if (typeof token === 'function') {
-        //   const mockMetadata = moduleMocker.getMetadata(
-        //     token,
-        //   ) as MockFunctionMetadata<any, any>;
-        //   const mock = moduleMocker.generateFromMetadata(mockMetadata);
-
-        //   return mock;
-        // }
       })
       .compile();
 

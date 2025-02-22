@@ -9,10 +9,7 @@ export class TopicComponentService {
     private readonly topicService: TopicService,
     private readonly resourceService: ResourceService,
   ) {}
-  async shortestTopicPath(
-    fromId: string,
-    toId: string,
-  ): Promise<TopicComponent[]> {
+  async shortestPath(fromId: string, toId: string): Promise<TopicComponent[]> {
     const topics = await this.topicService.list();
     const resources = await this.resourceService.list();
 

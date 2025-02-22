@@ -66,6 +66,6 @@ export class TopicController {
     @Param('fromId') fromId: string,
     @Param('toId') toId: string,
   ): Promise<TopicComponent[]> {
-    return this.topicComponentService.shortestTopicPath(fromId, toId);
+    return this.topicComponentService.shortestPath(fromId, toId);
   }
 }
