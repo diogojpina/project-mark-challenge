@@ -26,8 +26,5 @@ export class TopicComponentService {
     if (!to) throw new HttpException('To not found!', HttpStatus.BAD_REQUEST);
 
     return from.shortestPath(to, topicComponents);
-
-    // const path = DirectionGraph.shortestPath(topics, from, to);
-    // return path;
   }
 }
