@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { TopicComponent } from '../entities/components/topic.component';
 import { TopicService } from './topic.service';
 import { ResourceService } from './resource.service';
-import { DirectionGraph } from '../graph/directional.graph';
 
 @Injectable()
 export class TopicComponentService {
