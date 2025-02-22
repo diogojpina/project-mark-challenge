@@ -9,10 +9,16 @@ import { Resource } from './entities/resource.entity';
 import { User } from './entities/user.entity';
 import { TopicService } from './services/topic.service';
 import { ResourceService } from './services/resource.service';
+import { TopicComponentService } from './services/topic.component.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Topic, Resource, User])],
   controllers: [TopicController, UserController, ResourceController],
-  providers: [UserService, TopicService, ResourceService],
+  providers: [
+    UserService,
+    TopicService,
+    ResourceService,
+    TopicComponentService,
+  ],
 })
 export class MarkModule {}

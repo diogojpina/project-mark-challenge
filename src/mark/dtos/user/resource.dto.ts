@@ -26,5 +26,5 @@ export class ResourceDto {
 
   @ApiProperty({ enum: ResourceType })
   @IsEnum(ResourceType)
-  role: ResourceType;
+  type: ResourceType;
 }

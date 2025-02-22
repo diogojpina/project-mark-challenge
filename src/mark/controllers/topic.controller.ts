@@ -11,12 +11,16 @@ import { ApiTags } from '@nestjs/swagger';
 import { TopicService } from '../services/topic.service';
 import { Topic } from '../entities/topic.entity';
 import { TopicDto } from '../dtos/user/topic.dto';
-import { TopicComponent } from '../entities/interface/topic.component.interface';
+import { TopicComponent } from '../entities/components/topic.component';
+import { TopicComponentService } from '../services/topic.component.service';
 
 @ApiTags('Topic')
 @Controller('topic')
 export class TopicController {
-  constructor(private readonly topicService: TopicService) {}
+  constructor(
+    private readonly topicService: TopicService,
+    private readonly topicComponentService: TopicComponentService,
+  ) {}
 
   @Get()
   async list(): Promise<Topic[]> {
@@ -45,9 +49,9 @@ export class TopicController {
 
   @Get('/shortestTopicPath/:fromId/:toId')
   async shortestPath(
-    @Param('fromId') fromId: number,
-    @Param('toId') toId: number,
+    @Param('fromId') fromId: string,
+    @Param('toId') toId: string,
   ): Promise<TopicComponent[]> {
-    return this.topicService.shortestTopicPath(fromId, toId);
+    return this.topicComponentService.shortestTopicPath(fromId, toId);
   }
 }

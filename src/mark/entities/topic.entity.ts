@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Resource } from './resource.entity';
-import { TopicComponent } from './interface/topic.component.interface';
+import { TopicComponent } from './components/topic.component';
 
 @Entity()
 export class Topic extends TopicComponent {
@@ -41,11 +41,27 @@ export class Topic extends TopicComponent {
   }
 
   getChildren(): TopicComponent[] {
-    return this.children || [];
+    return [...this.children, ...this.resources];
   }
 
-  shortestPath(to: TopicComponent): TopicComponent[] {
-    console.log('to', to);
+  shortestPath(
+    to: TopicComponent,
+    topicComponents: TopicComponent[],
+  ): TopicComponent[] {
+    if (this.getIdentifier() === to.getIdentifier()) return [this];
+
+    for (const child of this.getChildren()) {
+      const cChild = topicComponents.find(
+        (tc) => tc.getIdentifier() === child.getIdentifier(),
+      );
+      if (!cChild) continue;
+
+      const path = cChild.shortestPath(to, topicComponents);
+      if (path.length > 0) {
+        path.unshift(this);
+        return path;
+      }
+    }
     return [];
   }
 }

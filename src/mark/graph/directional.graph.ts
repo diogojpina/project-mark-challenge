@@ -1,7 +1,8 @@
-import { TopicComponent } from '../entities/interface/topic.component.interface';
+import { TopicComponent } from '../entities/components/topic.component';
 
 export class DirectionGraph {
-  //bfs search to find the shortestpath, then print the path
+  // BFS search to find the shortestpath
+  // then print the path
   public static shortestPath(
     topics: TopicComponent[],
     from: TopicComponent,

@@ -3,8 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Topic } from '../entities/topic.entity';
 import { Repository } from 'typeorm';
 import { TopicDto } from '../dtos/user/topic.dto';
-import { DirectionGraph } from '../graph/directional.graph';
-import { TopicComponent } from '../entities/interface/topic.component.interface';
 
 @Injectable()
 export class TopicService {
@@ -51,24 +49,5 @@ export class TopicService {
 
     delete dto.parentId;
     Object.assign(topic, dto);
-  }
-
-  async shortestTopicPath(
-    fromId: number,
-    toId: number,
-  ): Promise<TopicComponent[]> {
-    const topics = await this.topicRepository.find({
-      relations: { children: true },
-    });
-
-    const from = topics.find((t) => t.id === fromId);
-    const to = topics.find((t) => t.id === toId);
-
-    if (!from)
-      throw new HttpException('From not found!', HttpStatus.BAD_REQUEST);
-    if (!to) throw new HttpException('To not found!', HttpStatus.BAD_REQUEST);
-
-    const path = DirectionGraph.shortestPath(topics, from, to);
-    return path;
   }
 }
