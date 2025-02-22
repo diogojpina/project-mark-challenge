@@ -8,9 +8,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Resource } from './resource.entity';
+import { TopicComponent } from './interface/topic.component.interface';
 
 @Entity()
-export class Topic {
+export class Topic extends TopicComponent {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -34,4 +35,17 @@ export class Topic {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  getIdentifier(): string {
+    return 'topic-' + this.id;
+  }
+
+  getChildren(): TopicComponent[] {
+    return this.children || [];
+  }
+
+  shortestPath(to: TopicComponent): TopicComponent[] {
+    console.log('to', to);
+    return [];
+  }
 }

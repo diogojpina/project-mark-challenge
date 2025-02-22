@@ -11,6 +11,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { TopicService } from '../services/topic.service';
 import { Topic } from '../entities/topic.entity';
 import { TopicDto } from '../dtos/user/topic.dto';
+import { TopicComponent } from '../entities/interface/topic.component.interface';
 
 @ApiTags('Topic')
 @Controller('topic')
@@ -22,7 +23,7 @@ export class TopicController {
     return await this.topicService.list();
   }
 
-  @Get()
+  @Get('/:id')
   async get(@Param('id') id: number): Promise<Topic> {
     return await this.topicService.get(id);
   }
@@ -40,5 +41,13 @@ export class TopicController {
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<boolean> {
     return await this.topicService.delete(id);
+  }
+
+  @Get('/shortestTopicPath/:fromId/:toId')
+  async shortestPath(
+    @Param('fromId') fromId: number,
+    @Param('toId') toId: number,
+  ): Promise<TopicComponent[]> {
+    return this.topicService.shortestTopicPath(fromId, toId);
   }
 }
