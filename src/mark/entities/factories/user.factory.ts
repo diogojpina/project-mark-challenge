@@ -1,4 +1,4 @@
-import { CreateUserDto } from 'src/mark/dtos/user/create.user.dto';
+import { CreateUserDto } from '../../dtos/user/create.user.dto';
 import { User } from '../user.entity';
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';

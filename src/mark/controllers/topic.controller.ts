@@ -13,11 +13,11 @@ import { Topic } from '../entities/topic.entity';
 import { TopicDto } from '../dtos/user/topic.dto';
 import { TopicComponentService } from '../services/topic.component.service';
 import { TopicComponent } from '../entities/components/topic.component';
-import { Private } from 'src/auth/decorator/private.decorator';
-import { CurrentUser } from 'src/auth/decorator/current.access.decorator';
+import { Private } from '../../auth/decorator/private.decorator';
+import { RequiredPermission } from '../../auth/decorator/required.permission.decorator.ts';
+import { CurrentUser } from '../../auth/decorator/current.access.decorator';
 import { User } from '../entities/user.entity';
 import { Permission } from '../enum/permission.enum';
-import { RequiredPermission } from 'src/auth/decorator/required.permission.decorator.ts';
 
 @ApiTags('Topic')
 @Private()

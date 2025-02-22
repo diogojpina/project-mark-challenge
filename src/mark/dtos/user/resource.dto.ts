@@ -6,7 +6,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { ResourceType } from 'src/mark/enum/resource.type.enum';
+import { ResourceType } from '../../enum/resource.type.enum';
 
 export class ResourceDto {
   @ApiProperty()

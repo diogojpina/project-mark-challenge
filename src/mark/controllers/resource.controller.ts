@@ -11,7 +11,7 @@ import { ResourceService } from '../services/resource.service';
 import { ResourceDto } from '../dtos/user/resource.dto';
 import { Resource } from '../entities/resource.entity';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Private } from 'src/auth/decorator/private.decorator';
+import { Private } from '../../auth/decorator/private.decorator';
 
 @ApiTags('Resource')
 @Private()

@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { MarkModule } from 'src/mark/mark.module';
+import { MarkModule } from '../mark/mark.module';
 import { AuthService } from './services/auth.service';
 import { AuthController } from './controllers/auth.controller';
 import { APP_GUARD } from '@nestjs/core';

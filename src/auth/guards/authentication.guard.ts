@@ -9,7 +9,7 @@ import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorator/public.decorator';
 import { IS_PRIVATE_KEY } from '../decorator/private.decorator';
-import { User } from 'src/mark/entities/user.entity';
+import { User } from '../../mark/entities/user.entity';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
