@@ -14,6 +14,10 @@ import { TopicDto } from '../dtos/user/topic.dto';
 import { TopicComponentService } from '../services/topic.component.service';
 import { TopicComponent } from '../entities/components/topic.component';
 import { Private } from 'src/auth/decorator/private.decorator';
+import { CurrentUser } from 'src/auth/decorator/current.access.decorator';
+import { User } from '../entities/user.entity';
+import { Permission } from '../enum/permission.enum';
+import { RequiredPermission } from 'src/auth/decorator/required.permission.decorator.ts';
 
 @ApiTags('Topic')
 @Private()
@@ -25,26 +29,33 @@ export class TopicController {
     private readonly topicComponentService: TopicComponentService,
   ) {}
 
+  @RequiredPermission(Permission.TOPIC_LIST)
   @Get()
-  async list(): Promise<Topic[]> {
+  async list(@CurrentUser() cUser: User): Promise<Topic[]> {
+    cUser.getRole().hasPermission('topic_list');
+
     return await this.topicService.list();
   }
 
+  @RequiredPermission(Permission.TOPIC_READ)
   @Get('/:id')
   async get(@Param('id') id: number): Promise<Topic> {
     return await this.topicService.get(id);
   }
 
+  @RequiredPermission(Permission.TOPIC_CREATE)
   @Post()
   async create(@Body() dto: TopicDto): Promise<Topic> {
     return await this.topicService.create(dto);
   }
 
+  @RequiredPermission(Permission.TOPIC_UPDATE)
   @Put()
   async uodate(@Param('id') id: number, @Body() dto: TopicDto): Promise<Topic> {
     return await this.topicService.update(id, dto);
   }
 
+  @RequiredPermission(Permission.TOPIC_DELETE)
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<boolean> {
     return await this.topicService.delete(id);

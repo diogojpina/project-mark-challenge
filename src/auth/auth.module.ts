@@ -4,7 +4,8 @@ import { MarkModule } from 'src/mark/mark.module';
 import { AuthService } from './services/auth.service';
 import { AuthController } from './controllers/auth.controller';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthenticationGuard } from './guards/authentication.guard';
+import { AuthorizationRoleGuard } from './guards/authorization.guard';
 
 @Module({
   imports: [
@@ -19,7 +20,11 @@ import { AuthGuard } from './guards/auth.guard';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: AuthGuard,
+      useClass: AuthenticationGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthorizationRoleGuard,
     },
     AuthService,
   ],

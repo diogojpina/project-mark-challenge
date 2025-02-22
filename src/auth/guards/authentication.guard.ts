@@ -9,9 +9,10 @@ import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorator/public.decorator';
 import { IS_PRIVATE_KEY } from '../decorator/private.decorator';
+import { User } from 'src/mark/entities/user.entity';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthenticationGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
     private reflector: Reflector,
@@ -43,7 +44,9 @@ export class AuthGuard implements CanActivate {
       try {
         const payload = await this.jwtService.verifyAsync(token);
 
-        request['user'] = payload?.user;
+        const user = new User();
+        Object.assign(user, payload?.user);
+        request['user'] = user;
       } catch {
         throw new UnauthorizedException();
       }
