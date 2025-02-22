@@ -4,7 +4,7 @@ import { User } from '../entities/user.entity';
 import { UserDto } from '../dtos/user/user.dto';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/user/create.user.dto';
-import * as bcrypt from 'bcrypt';
+import { UserFactory } from '../entities/factories/user.factory';
 
 @Injectable()
 export class UserService {
@@ -36,10 +36,7 @@ export class UserService {
     if (existingUsers)
       throw new HttpException('Email already exists.', HttpStatus.NOT_FOUND);
 
-    const user = new User();
-    Object.assign(user, dto);
-    user.password = await bcrypt.hash(dto.password, 10);
-
+    const user = await UserFactory.create(dto);
     return await this.userRepository.save(user);
   }
 
