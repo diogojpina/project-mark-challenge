@@ -20,7 +20,7 @@ export class ResourceController {
     return await this.resourceService.list();
   }
 
-  @Get()
+  @Get('/:id')
   async get(@Param('id') id: number): Promise<Resource> {
     return await this.resourceService.get(id);
   }

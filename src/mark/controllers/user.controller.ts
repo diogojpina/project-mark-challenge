@@ -22,7 +22,7 @@ export class UserController {
     return await this.userService.list();
   }
 
-  @Get()
+  @Get(':id')
   async get(@Param('id') id: number): Promise<User> {
     return await this.userService.get(id);
   }
