@@ -7,14 +7,17 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { TopicService } from '../services/topic.service';
 import { Topic } from '../entities/topic.entity';
 import { TopicDto } from '../dtos/user/topic.dto';
-import { TopicComponent } from '../entities/components/topic.component';
 import { TopicComponentService } from '../services/topic.component.service';
+import { TopicComponent } from '../entities/components/topic.component';
+import { Private } from 'src/auth/decorator/private.decorator';
 
 @ApiTags('Topic')
+@Private()
+@ApiBearerAuth()
 @Controller('topic')
 export class TopicController {
   constructor(

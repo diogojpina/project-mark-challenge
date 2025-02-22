@@ -10,7 +10,12 @@ import {
 import { ResourceService } from '../services/resource.service';
 import { ResourceDto } from '../dtos/user/resource.dto';
 import { Resource } from '../entities/resource.entity';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Private } from 'src/auth/decorator/private.decorator';
 
+@ApiTags('Resource')
+@Private()
+@ApiBearerAuth()
 @Controller('resource')
 export class ResourceController {
   constructor(private readonly resourceService: ResourceService) {}

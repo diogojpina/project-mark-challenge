@@ -20,5 +20,6 @@ import { TopicComponentService } from './services/topic.component.service';
     ResourceService,
     TopicComponentService,
   ],
+  exports: [UserService],
 })
 export class MarkModule {}
