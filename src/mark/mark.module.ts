@@ -7,10 +7,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Topic } from './entities/topic.entity';
 import { Resource } from './entities/resource.entity';
 import { User } from './entities/user.entity';
+import { TopicService } from './services/topic.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Topic, Resource, User])],
   controllers: [TopicController, UserController, ResourceController],
-  providers: [UserService],
+  providers: [UserService, TopicService],
 })
 export class MarkModule {}
