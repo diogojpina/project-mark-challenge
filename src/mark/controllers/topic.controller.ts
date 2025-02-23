@@ -50,8 +50,8 @@ export class TopicController {
   }
 
   @RequiredPermission(Permission.TOPIC_UPDATE)
-  @Put()
-  async uodate(@Param('id') id: number, @Body() dto: TopicDto): Promise<Topic> {
+  @Put(':id')
+  async update(@Param('id') id: number, @Body() dto: TopicDto): Promise<Topic> {
     return await this.topicService.update(id, dto);
   }
 
@@ -61,7 +61,7 @@ export class TopicController {
     return await this.topicService.delete(id);
   }
 
-  @Get('/shortestTopicPath/:fromId/:toId')
+  @Get('/shortestPath/:fromId/:toId')
   async shortestPath(
     @Param('fromId') fromId: string,
     @Param('toId') toId: string,

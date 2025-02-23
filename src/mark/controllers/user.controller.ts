@@ -33,7 +33,7 @@ export class UserController {
     return await this.userService.create(dto);
   }
 
-  @Put()
+  @Put(':id')
   async update(@Param('id') id: number, @Body() dto: UserDto): Promise<User> {
     return await this.userService.update(id, dto);
   }

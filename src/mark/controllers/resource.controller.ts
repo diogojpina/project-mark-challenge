@@ -35,7 +35,7 @@ export class ResourceController {
     return await this.resourceService.create(dto);
   }
 
-  @Put()
+  @Put(':id')
   async uodate(
     @Param('id') id: number,
     @Body() dto: ResourceDto,
