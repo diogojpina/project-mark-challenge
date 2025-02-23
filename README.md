@@ -49,6 +49,10 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
+For dev mode, go to [http://localhost:3000/docs](http://localhost:3000/docs)
+
+You can use the Swagger to interact with the API.
+
 ## Run tests
 
 ```bash
