@@ -50,6 +50,15 @@ export class TopicController {
   }
 
   @RequiredPermission(Permission.TOPIC_UPDATE)
+  @Put('/version/:id')
+  async versioning(
+    @Param('id') id: number,
+    @Body() dto: TopicDto,
+  ): Promise<Topic> {
+    return await this.topicService.versioning(id, dto);
+  }
+
+  @RequiredPermission(Permission.TOPIC_UPDATE)
   @Put(':id')
   async update(@Param('id') id: number, @Body() dto: TopicDto): Promise<Topic> {
     return await this.topicService.update(id, dto);

@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Resource } from './resource.entity';
 import { TopicComponent } from './components/topic.component';
+import { TopicVersion } from './topic.version.entity';
 
 @Entity()
 export class Topic extends TopicComponent {
@@ -24,6 +25,9 @@ export class Topic extends TopicComponent {
   @OneToMany(() => Resource, (resource) => resource.topic)
   resources: Resource[];
 
+  @OneToMany(() => TopicVersion, (version) => version.topic, { cascade: true })
+  versions: TopicVersion[];
+
   @Column()
   name: string;
 
@@ -35,6 +39,13 @@ export class Topic extends TopicComponent {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  getVersion(): TopicVersion {
+    const topicVersion = this.versions.reduce(function (prev, current) {
+      return prev && prev.id > current.id ? prev : current;
+    });
+    return this.versions.find((v) => v.id === topicVersion.id);
+  }
 
   getIdentifier(): string {
     return 'topic-' + this.id;

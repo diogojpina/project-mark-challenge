@@ -11,15 +11,16 @@ import { TopicService } from './services/topic.service';
 import { ResourceService } from './services/resource.service';
 import { TopicComponentService } from './services/topic.component.service';
 import { UserFactory } from './entities/factories/user.factory';
+import { TopicVersion } from './entities/topic.version.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Topic, Resource, User])],
+  imports: [TypeOrmModule.forFeature([Topic, TopicVersion, Resource, User])],
   controllers: [TopicController, UserController, ResourceController],
   providers: [
     UserService,
     UserFactory,
-    TopicService,
     ResourceService,
+    TopicService,
     TopicComponentService,
   ],
   exports: [UserService],

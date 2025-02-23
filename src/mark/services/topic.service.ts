@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Topic } from '../entities/topic.entity';
 import { Repository } from 'typeorm';
 import { TopicDto } from '../dtos/user/topic.dto';
+import { TopicVersion } from '../entities/topic.version.entity';
 
 @Injectable()
 export class TopicService {
@@ -13,14 +14,24 @@ export class TopicService {
 
   async list(): Promise<Topic[]> {
     return await this.topicRepository.find({
-      relations: { parent: true, children: true, resources: true },
+      relations: {
+        parent: true,
+        children: true,
+        resources: true,
+        versions: true,
+      },
     });
   }
 
   async get(id: number): Promise<Topic> {
     const topic = await this.topicRepository.findOne({
       where: { id },
-      relations: { parent: true, children: true, resources: true },
+      relations: {
+        parent: true,
+        children: true,
+        resources: true,
+        versions: true,
+      },
     });
     if (!topic)
       throw new HttpException('Topic not found!', HttpStatus.BAD_REQUEST);
@@ -30,6 +41,18 @@ export class TopicService {
   async create(dto: TopicDto): Promise<Topic> {
     const topic = new Topic();
     await this.fill(topic, dto);
+    return await this.topicRepository.save(topic);
+  }
+
+  async versioning(id: number, dto: TopicDto): Promise<Topic> {
+    const topic = await this.get(id);
+
+    const topicVersion = new TopicVersion();
+    topicVersion.name = dto.name;
+    topicVersion.content = dto.content;
+
+    topic.versions.push(topicVersion);
+
     return await this.topicRepository.save(topic);
   }
 
