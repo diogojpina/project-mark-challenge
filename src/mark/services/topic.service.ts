@@ -50,4 +50,22 @@ export class TopicService {
     delete dto.parentId;
     Object.assign(topic, dto);
   }
+
+  async getRecursive(id: number): Promise<Topic> {
+    const root = await this.get(id);
+    const queue: Topic[] = [root];
+
+    while (queue.length > 0) {
+      const topic = queue.shift();
+
+      if (!topic.children) continue;
+
+      for (let i = 0; i < topic.children.length; i++) {
+        const child = topic.children[i];
+        queue.push(topic.children[i]);
+        topic.children[i] = await this.get(child.id);
+      }
+    }
+    return root;
+  }
 }

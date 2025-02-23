@@ -61,6 +61,11 @@ export class TopicController {
     return await this.topicService.delete(id);
   }
 
+  @Get('/recursive/:id')
+  async recursive(@Param('id') id: number): Promise<Topic> {
+    return this.topicService.getRecursive(id);
+  }
+
   @Get('/shortestPath/:fromId/:toId')
   async shortestPath(
     @Param('fromId') fromId: string,
