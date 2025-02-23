@@ -6,7 +6,7 @@ import { AuthService } from '../services/auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
-  async signIn(@Body() dto: LoginDto): Promise<any> {
+  async login(@Body() dto: LoginDto): Promise<any> {
     const token = await this.authService.login(dto.email, dto.password);
     return { token };
   }
