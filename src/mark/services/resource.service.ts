@@ -18,10 +18,10 @@ export class ResourceService {
   }
 
   async get(id: number): Promise<Resource> {
-    const topic = await this.resourceRepository.findOneBy({ id });
-    if (!topic)
-      throw new HttpException('Topic not found!', HttpStatus.BAD_REQUEST);
-    return topic;
+    const resource = await this.resourceRepository.findOneBy({ id });
+    if (!resource)
+      throw new HttpException('Resource not found!', HttpStatus.BAD_REQUEST);
+    return resource;
   }
 
   async create(dto: ResourceDto): Promise<Resource> {

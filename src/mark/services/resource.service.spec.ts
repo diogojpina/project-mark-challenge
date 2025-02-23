@@ -5,12 +5,24 @@ import { Resource } from '../entities/resource.entity';
 import { ResourceType } from '../enum/resource.type.enum';
 import { ResourceService } from './resource.service';
 import { ResourceDto } from '../dtos/user/resource.dto';
+import { TopicService } from './topic.service';
+import { Topic } from '../entities/topic.entity';
 
 const moduleMocker = new ModuleMocker(global);
 
+const topic1 = new Topic();
+topic1.id = 1;
+topic1.parent = null;
+topic1.children = [];
+topic1.resources = [];
+topic1.content = 'Topic 1';
+topic1.content = '1';
+
 const resource1 = new Resource();
 resource1.id = 1;
+resource1.topic = topic1;
 resource1.url = 'http://www.test.com';
+resource1.description = '';
 resource1.type = ResourceType.PDF;
 
 const resources = [resource1];
@@ -28,8 +40,17 @@ describe('Resource Service', () => {
           return {
             find: jest.fn().mockResolvedValue(Promise.resolve(resources)),
             findOne: jest.fn().mockResolvedValue(Promise.resolve(resources[0])),
+            findOneBy: jest
+              .fn()
+              .mockResolvedValue(Promise.resolve(resources[0])),
             save: jest.fn().mockResolvedValue(Promise.resolve(resources[0])),
             delete: jest.fn().mockResolvedValue(Promise.resolve(true)),
+          };
+        }
+
+        if (token === TopicService) {
+          return {
+            get: jest.fn().mockResolvedValue(Promise.resolve(topic1)),
           };
         }
 
@@ -56,7 +77,7 @@ describe('Resource Service', () => {
   describe('get', () => {
     it('should return a resource', async () => {
       jest
-        .spyOn(resourceRepository, 'findOne')
+        .spyOn(resourceRepository, 'findOneBy')
         .mockImplementation(() => Promise.resolve(resources[0]));
 
       expect(await service.get(1)).toBe(resources[0]);
@@ -64,7 +85,7 @@ describe('Resource Service', () => {
 
     it('should throw an error', async () => {
       jest
-        .spyOn(resourceRepository, 'findOne')
+        .spyOn(resourceRepository, 'findOneBy')
         .mockImplementation(() => Promise.resolve(null));
 
       expect(service.get(42)).rejects.toThrow(/not found/);
